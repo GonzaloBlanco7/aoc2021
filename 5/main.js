@@ -15,8 +15,8 @@ let x_size = 0
 let y_size = 0
 for (row of data) {
     for (measure of row) {
-        x_size = Math.max(measure[0], x_size)
-        y_size = Math.max(measure[1], y_size)
+        x_size = Math.max(measure[0], x_size)+1 //both are indexes
+        y_size = Math.max(measure[1], y_size)+1 //both are indexes
     }
 }
 console.log(`Matrix size: ${x_size} x ${y_size}`)
@@ -26,7 +26,6 @@ function testA() {
     //Create Matrix (filled with zeros)
     let matrix_row = Array(x_size).fill(0)
     let matrix = Array(y_size).fill(matrix_row)
-    console.log(matrix)
     
     for (row of data) {
         let x_affected = Array()
@@ -43,8 +42,7 @@ function testA() {
         for (let i=y_start; i<=(y_start+y_distance); i++) {
             y_affected.push(i)
         }
-        console.log(x_affected)
-        console.log(y_affected)
+
         //Add to matrix
         //Due to only vertical or horizontal
         if (x_distance == 0) {
