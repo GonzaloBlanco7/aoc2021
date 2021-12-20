@@ -56,7 +56,8 @@ function testA() {
                     }
                 })
             }
-        } else {
+        }
+        if (y_distance == 0) {
             //Horizontal (fill x axis)
             for (affected of x_affected) {
                 matrix[y_start][affected]++
