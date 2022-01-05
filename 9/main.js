@@ -74,19 +74,51 @@ function testB() {
                     continue
                 }
             }
-            basins.push(getBasin(map, x, y))
+
+            let basin = getBasin(map, x, y)
+            //Get unique points in basin
+            basin = [...new Set(basin)]
+            basins.push(basin.length)
         }
     }
     
-    console.log(basins)
+    basins = basins.sort((a, b) => b-a)
+    return basins[0] * basins[1] * basins[2]
 }
 
 function getBasin(map, x, y) {
-    
+    let points = [`${y},${x}`]
+    const item = map[y][x]
+
+    //UP
+    if (y>0) {
+        if ((map[y-1][x] > item) && (map[y-1][x] != 9)) {
+            points = points.concat(getBasin(map, x, y-1))
+        }
+    }
+    //DOWN
+    if (y<map.length-1) {
+        if ((map[y+1][x] > item) && (map[y+1][x] != 9)) {
+            points = points.concat(getBasin(map, x, y+1))
+        }
+    }
+    //LEFT
+    if (x>0) {
+        if ((map[y][x-1] > item) && (map[y][x-1] != 9)) {
+            points = points.concat(getBasin(map, x-1, y))
+        }
+    }
+    //RIGHT
+    if (x<map[0].length-1) {
+        if ((map[y][x+1] > item) && (map[y][x+1] != 9)) {
+            points = points.concat(getBasin(map, x+1, y))
+        }
+    }
+    return points
 }
 
 
-//console.log("A: "+testA())
+console.log("A: "+testA())
 console.log("B: "+testB())
 
 
