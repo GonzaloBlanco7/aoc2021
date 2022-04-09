@@ -42,7 +42,10 @@ function fold(instruction, input) {
 }
 
 
-function draw(points, heigth, width) {
+function draw(points) {
+    let width = points.reduce((max_w, p) => Math.max(max_w, p[0]), 0)+1
+    let heigth = points.reduce((max_h, p) => Math.max(max_h, p[1]), 0)+1
+
     let output = []
     for (let h = 0; h<heigth; h++) {
         output[h] = []
@@ -77,18 +80,10 @@ function testB() {
     let input = input_points
 
     for (let inst of input_instructions) {
-        
         input = fold(inst, input)
-
-        
-        //console.log("\n\n-----------------------------------------\n\n")
-        
     }
 
-    let max_w = input.reduce((max_w, p) => Math.max(max_w, p[0]), 0)
-    let max_h = input.reduce((max_h, p) => Math.max(max_h, p[1]), 0)
-    draw(input, max_h+1, max_w+1)
-
+    draw(input)
     return
 }
 
